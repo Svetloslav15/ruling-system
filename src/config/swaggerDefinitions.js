@@ -21,12 +21,42 @@
  *               name:
  *                 type: string
  *                 description: The name of the configuration
+ *                 example: "Monitor High Value Transactions"
  *               filter:
  *                 type: object
  *                 description: JSON object defining the transaction filter rules
+ *                 properties:
+ *                   from:
+ *                     type: string
+ *                     description: Ethereum address of the sender
+ *                     example: "0x1234567890abcdef1234567890abcdef12345678"
+ *                   to:
+ *                     type: string
+ *                     description: Ethereum address of the receiver
+ *                     example: "0xabcdefabcdefabcdefabcdefabcdefabcdefabcdef"
+ *                   minValue:
+ *                     type: string
+ *                     description: Minimum value of the transaction (in Wei)
+ *                     example: "1000000000000000000"  # 1 Ether in Wei
+ *                   maxValue:
+ *                     type: string
+ *                     description: Maximum value of the transaction (in Wei)
+ *                     example: "5000000000000000000"  # 5 Ether in Wei
+ *                   gasLimit:
+ *                     type: integer
+ *                     description: Gas limit for the transaction
+ *                     example: 21000
+ *                   gasPrice:
+ *                     type: string
+ *                     description: Gas price for the transaction (in Wei)
+ *                     example: "20000000000"  # 20 Gwei in Wei
+ *                   chainId:
+ *                     type: integer
+ *                     description: Ethereum chain ID
+ *                     example: 1
  *     responses:
  *       201:
- *         description: Created
+ *         description: Configuration created
  */
 
 /**
@@ -62,8 +92,40 @@
  *             properties:
  *               name:
  *                 type: string
+ *                 description: The name of the configuration
+ *                 example: "Update Monitor High Value Transactions"
  *               filter:
  *                 type: object
+ *                 description: JSON object defining the transaction filter rules
+ *                 properties:
+ *                   from:
+ *                     type: string
+ *                     description: Ethereum address of the sender
+ *                     example: "0x1234567890abcdef1234567890abcdef12345678"
+ *                   to:
+ *                     type: string
+ *                     description: Ethereum address of the receiver
+ *                     example: "0xabcdefabcdefabcdefabcdefabcdefabcdefabcdef"
+ *                   minValue:
+ *                     type: string
+ *                     description: Minimum value of the transaction (in Wei)
+ *                     example: "1000000000000000000"  # 1 Ether in Wei
+ *                   maxValue:
+ *                     type: string
+ *                     description: Maximum value of the transaction (in Wei)
+ *                     example: "5000000000000000000"  # 5 Ether in Wei
+ *                   gasLimit:
+ *                     type: integer
+ *                     description: Gas limit for the transaction
+ *                     example: 21000
+ *                   gasPrice:
+ *                     type: string
+ *                     description: Gas price for the transaction (in Wei)
+ *                     example: "20000000000"  # 20 Gwei in Wei
+ *                   chainId:
+ *                     type: integer
+ *                     description: Ethereum chain ID
+ *                     example: 1
  *     responses:
  *       200:
  *         description: Configuration updated

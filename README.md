@@ -51,7 +51,7 @@ To get started with the Ethereum Transaction Monitoring System, follow the steps
     INFURA_PROJECT_ID=your-infura-project-id
     DATABASE_STORAGE=./database.sqlite
     DATABASE_DIALECT=sqlite
-    PORT=3000
+    PORT=3005
     ```
     Replace `your-infura-project-id` with your Infura project ID and configure your database connection accordingly.
 

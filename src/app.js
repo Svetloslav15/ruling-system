@@ -14,6 +14,8 @@ app.use(scopePerRequest(container));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const configurationService = container.resolve("configurationService");
-app.use("/configurations", configurationRouter(configurationService));
+const logger = container.resolve("logger");
+
+app.use("/configurations", configurationRouter(configurationService, logger));
 
 export default app;

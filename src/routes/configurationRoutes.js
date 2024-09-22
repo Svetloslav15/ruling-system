@@ -13,7 +13,7 @@ const Messages = {
   ConfigurationNotFoundMessage: "Configuration not found",
 };
 
-export const configurationRouter = (configurationService) => {
+export const configurationRouter = (configurationService, logger) => {
   const router = Router();
 
   router.post("/", async (req, res) => {
@@ -23,10 +23,10 @@ export const configurationRouter = (configurationService) => {
         res.status(StatusCodes.CREATED).json(config);
       }
     } catch (error) {
-      console.error(`Error in POST /configurations: ${error.message}`);
+      logger.error(`Error in POST /configurations: ${error.message}`);
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ error: InternalServerErrorMessage });
+        .json({ error: Messages.InternalServerErrorMessage });
     }
   });
 
@@ -35,10 +35,10 @@ export const configurationRouter = (configurationService) => {
       const configs = await configurationService.getConfigurations();
       res.status(StatusCodes.OK).json(configs);
     } catch (error) {
-      console.error(`Error in GET /configurations: ${error.message}`);
+      logger.error(`Error in GET /configurations: ${error.message}`);
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ error: InternalServerErrorMessage });
+        .json({ error: Messages.InternalServerErrorMessage });
     }
   });
 
@@ -56,7 +56,7 @@ export const configurationRouter = (configurationService) => {
           .json({ error: Messages.ConfigurationNotFoundMessage });
       }
     } catch (error) {
-      console.error(
+      logger.error(
         `Error in PUT /configurations/${req.params.id}: ${error.message}`
       );
       res
@@ -67,23 +67,17 @@ export const configurationRouter = (configurationService) => {
 
   router.delete("/:id", async (req, res) => {
     try {
-      const result = await configurationService.deleteConfiguration(
+      await configurationService.deleteConfiguration(
         req.params.id
       );
-      if (result) {
-        res.status(StatusCodes.NO_CONTENT).send();
-      } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .json({ error: Messages.ConfigurationNotFoundMessage });
-      }
+      res.status(StatusCodes.OK).send();
     } catch (error) {
-      console.error(
+      logger.error(
         `Error in DELETE /configurations/${req.params.id}: ${error.message}`
       );
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({ error: InternalServerErrorMessage });
+        .json({ error: Messages.InternalServerErrorMessage });
     }
   });
 
