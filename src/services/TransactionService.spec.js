@@ -1,29 +1,16 @@
 import { jest } from "@jest/globals";
 import { TransactionService } from "./TransactionService";
+import {
+  mockEthereumProvider,
+  mockConfigService,
+  mockTransactionModel,
+  mockLogger,
+} from "../../mocks/mocks";
 
 describe("TransactionService", () => {
   let transactionService;
-  let mockEthereumProvider;
-  let mockConfigService;
-  let mockTransactionModel;
-  let mockLogger;
 
   beforeEach(() => {
-    mockEthereumProvider = {
-      on: jest.fn(),
-      getTransaction: jest.fn(),
-    };
-    mockConfigService = {
-      getConfigurations: jest.fn(),
-    };
-    mockTransactionModel = {
-      create: jest.fn(),
-    };
-    mockLogger = {
-      info: jest.fn(),
-      error: jest.fn(),
-    };
-
     transactionService = new TransactionService({
       ethereumProvider: mockEthereumProvider,
       configurationService: mockConfigService,
