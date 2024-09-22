@@ -4,6 +4,7 @@ import { ConfigurationService } from "../services/ConfigurationService.js";
 import { TransactionService } from "../services/TransactionService.js";
 import { createLogger } from "../utils/logger.js";
 import { createEthereumProvider } from "../utils/etheriumProvider.js";
+import { Utils } from "../utils/utils.js";
 
 const container = createContainer();
 
@@ -14,6 +15,7 @@ container.register({
   transactionService: asClass(TransactionService).singleton(),
   ConfigurationModel: asValue(Configuration),
   TransactionModel: asValue(Transaction),
+  utils: asFunction(Utils).singleton()
 });
 
 export default container;

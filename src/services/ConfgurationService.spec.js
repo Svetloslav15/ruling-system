@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 
 import { ConfigurationService } from "./ConfigurationService";
-import { mockConfigurationModel, mockLogger } from "../../mocks/mocks";
+import { mockConfigurationModel, mockLogger, mockUtils } from "../../mocks/mocks";
 
 describe("ConfigurationService", () => {
   let configurationService;
@@ -10,6 +10,7 @@ describe("ConfigurationService", () => {
     configurationService = new ConfigurationService({
       ConfigurationModel: mockConfigurationModel,
       logger: mockLogger,
+      utils: mockUtils
     });
   });
 
@@ -33,6 +34,7 @@ describe("ConfigurationService", () => {
   it("should create a new configuration", async () => {
     const newConfig = { name: "New Config", filter: { from: "0x123" } };
     const createdConfig = { id: 3, ...newConfig };
+    jest.spyOn(configurationService.utils, "generateGuid").mockReturnValue("test-guid");
 
     mockConfigurationModel.create.mockResolvedValue(createdConfig);
 

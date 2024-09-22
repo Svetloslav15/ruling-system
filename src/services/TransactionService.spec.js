@@ -5,6 +5,7 @@ import {
   mockConfigService,
   mockTransactionModel,
   mockLogger,
+  mockUtils
 } from "../../mocks/mocks";
 
 describe("TransactionService", () => {
@@ -16,6 +17,7 @@ describe("TransactionService", () => {
       configurationService: mockConfigService,
       TransactionModel: mockTransactionModel,
       logger: mockLogger,
+      utils: mockUtils
     });
 
     jest.useFakeTimers();
@@ -62,7 +64,7 @@ describe("TransactionService", () => {
     jest
       .spyOn(transactionService, "matchesConfiguration")
       .mockReturnValue(true);
-    jest.spyOn(transactionService, "generateGuid").mockReturnValue("test-guid");
+    jest.spyOn(transactionService.utils, "generateGuid").mockReturnValue("test-guid");
 
     await transactionService.processPendingTransactions();
 
@@ -150,13 +152,6 @@ describe("TransactionService", () => {
 
     const result = transactionService.matchesConfiguration(tx, config);
     expect(result).toBe(true);
-  });
-
-  it("should correctly generate a GUID", () => {
-    const guid = transactionService.generateGuid();
-    expect(guid).toMatch(
-      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    );
   });
 
   it("should not process transactions if queue is empty", async () => {

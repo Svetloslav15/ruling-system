@@ -11,6 +11,10 @@ const mockTransactionModel = {
   create: jest.fn(),
 };
 
+const mockUtils = {
+    generateGuid: jest.fn()
+};
+
 const mockConfigurationModel = {
   findByPk: jest.fn(),
   findAll: jest.fn(),
@@ -29,5 +33,6 @@ export {
   mockConfigService,
   mockTransactionModel,
   mockLogger,
-  mockConfigurationModel
+  mockConfigurationModel,
+  mockUtils
 };
