@@ -1,9 +1,8 @@
-// src/utils/ethereumProvider.js
-import { ethers } from 'ethers';
+import { WebSocketProvider } from 'ethers';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 export const createEthereumProvider = () => {
-  return new ethers.providers.InfuraProvider('mainnet', process.env.INFURA_PROJECT_ID);
+  return new WebSocketProvider(`wss://mainnet.infura.io/ws/v3/${process.env.INFURA_PROJECT_ID}`);
 };
