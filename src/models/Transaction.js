@@ -23,6 +23,7 @@ const TransactionModel = (sequelize, Configuration) => {
         model: Configuration,
         key: 'id',
       },
+      onDelete: 'CASCADE'
     },
     createdAt: {
       type: DataTypes.DATE,

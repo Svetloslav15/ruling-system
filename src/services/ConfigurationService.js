@@ -7,31 +7,59 @@ export class ConfigurationService {
   }
 
   async createConfiguration(data) {
-    data.id = this.utils.generateGuid();
-    const config = await this.ConfigurationModel.create(data);
-    this.logger.info(`Configuration created: ${config.id}`);
-    return config;
+    try {
+      data.id = this.utils.generateGuid();
+      const config = await this.ConfigurationModel.create(data);
+      this.logger.info(`Configuration created: ${config.id}`);
+      return config;
+    } catch (error) {
+      const message = `Error creating configuration: ${error.message}`;
+      this.logger.error(message);
+      throw new Error(message);
+    }
   }
 
   async getConfigurations() {
-    return await this.ConfigurationModel.findAll();
+    try {
+      return await this.ConfigurationModel.findAll();
+    } catch (error) {
+      const message = `Error fetching configurations: ${error.message}`;
+      this.logger.error(message);
+      throw new Error(message);
+    }
   }
 
   async updateConfiguration(id, data) {
-    const config = await this.ConfigurationModel.findByPk(id);
-    if (config) {
-      await config.update(data);
-      this.logger.info(`Configuration ${id} updated`);
-      return config;
+    try {
+      const config = await this.ConfigurationModel.findByPk(id);
+      if (config) {
+        await config.update(data);
+        this.logger.info(`Configuration ${id} updated`);
+        return config;
+      } else {
+        this.logger.warn(`Configuration with id ${id} not found`);
+        return null;
+      }
+    } catch (error) {
+      const message = `Error updating configuration ${id}: ${error.message}`;
+      this.logger.error(message);
+      throw new Error(message);
     }
-    return null;
   }
 
   async deleteConfiguration(id) {
-    const config = await this.ConfigurationModel.findByPk(id);
-    if (config) {
-      await config.destroy();
-      this.logger.info(`Configuration ${id} deleted`);
+    try {
+      const config = await this.ConfigurationModel.findByPk(id);
+      if (config) {
+        await config.destroy();
+        this.logger.info(`Configuration ${id} deleted`);
+      } else {
+        this.logger.warn(`Configuration with id ${id} not found`);
+      }
+    } catch (error) {
+      const message = `Error deleting configuration ${id}: ${error.message}`;
+      this.logger.error(message);
+      throw new Error(message);
     }
   }
 }

@@ -10,12 +10,12 @@ const container = createContainer();
 
 container.register({
   logger: asFunction(createLogger).singleton(),
+  utils: asClass(Utils).singleton(),
   ethereumProvider: asFunction(createEthereumProvider).singleton(),
   configurationService: asClass(ConfigurationService).singleton(),
   transactionService: asClass(TransactionService).singleton(),
   ConfigurationModel: asValue(Configuration),
   TransactionModel: asValue(Transaction),
-  utils: asFunction(Utils).singleton()
 });
 
 export default container;

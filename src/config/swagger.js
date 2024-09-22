@@ -1,6 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
 
-// Swagger definition
 const swaggerDefinition = {
   openapi: "3.0.0",
   info: {
@@ -11,7 +10,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "http://localhost:3005",
+      url: "http://localhost:3000",
     },
   ],
 };

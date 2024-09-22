@@ -74,11 +74,16 @@ export class TransactionService {
     if (filter.minValue && value < BigInt(filter.minValue)) {
       return false;
     }
+
     if (filter.maxValue && value > BigInt(filter.maxValue)) {
       return false;
     }
 
     if (filter.gasLimit && tx.gasLimit.toNumber() !== filter.gasLimit) {
+      return false;
+    }
+
+    if (filter.gasPrice && tx.gasPrice.toNumber() !== filter.gasPrice) {
       return false;
     }
 
