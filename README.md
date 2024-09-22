@@ -28,7 +28,7 @@ To get started with the Ethereum Transaction Monitoring System, follow the steps
 
 ### Prerequisites
 - **Node.js** (v12 or higher)
-- **npm** or **yarn**
+- **npm**
 - **PostgreSQL** or any supported SQL database
 - **Infura** account for accessing Ethereum node services
 
