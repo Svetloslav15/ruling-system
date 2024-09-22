@@ -5,7 +5,7 @@ import {
   mockConfigService,
   mockTransactionModel,
   mockLogger,
-  mockUtils
+  mockUtils,
 } from "../../mocks/mocks";
 
 describe("TransactionService", () => {
@@ -17,7 +17,7 @@ describe("TransactionService", () => {
       configurationService: mockConfigService,
       TransactionModel: mockTransactionModel,
       logger: mockLogger,
-      utils: mockUtils
+      utils: mockUtils,
     });
 
     jest.useFakeTimers();
@@ -64,7 +64,9 @@ describe("TransactionService", () => {
     jest
       .spyOn(transactionService, "matchesConfiguration")
       .mockReturnValue(true);
-    jest.spyOn(transactionService.utils, "generateGuid").mockReturnValue("test-guid");
+    jest
+      .spyOn(transactionService.utils, "generateGuid")
+      .mockReturnValue("test-guid");
 
     await transactionService.processPendingTransactions();
 
@@ -136,7 +138,7 @@ describe("TransactionService", () => {
       from: "0x123",
       to: "0x456",
       value: "500",
-      gasLimit: { toNumber: () => 21000 },
+      gasLimit: 21000,
       chainId: BigInt(1),
     };
     const config = {
@@ -218,12 +220,25 @@ describe("TransactionService", () => {
     expect(result).toBe(false);
   });
 
+  it("should return false if gasPrice is more than in filter", () => {
+    const tx = {
+      from: "0x123",
+      to: "0x456",
+      value: "500",
+      chainId: BigInt(1),
+      gasPrice: 5000,
+    };
+    const config = { filter: { gasPrice: 2000 } };
+    const result = transactionService.matchesConfiguration(tx, config);
+    expect(result).toBe(false);
+  });
+
   it("should return true if all filters match", () => {
     const tx = {
       from: "0x123",
       to: "0x456",
       value: "500",
-      gasLimit: { toNumber: () => 21000 },
+      gasLimit: 21000,
       chainId: BigInt(1),
     };
     const config = {

@@ -67,9 +67,7 @@ export const configurationRouter = (configurationService, logger) => {
 
   router.delete("/:id", async (req, res) => {
     try {
-      await configurationService.deleteConfiguration(
-        req.params.id
-      );
+      await configurationService.deleteConfiguration(req.params.id);
       res.status(StatusCodes.OK).send();
     } catch (error) {
       logger.error(

@@ -1,7 +1,7 @@
-import { Sequelize } from 'sequelize';
-import dotenv from 'dotenv';
-import ConfigurationModel from './Configuration.js';
-import TransactionModel from './Transaction.js';
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+import ConfigurationModel from "./Configuration.js";
+import TransactionModel from "./Transaction.js";
 
 dotenv.config();
 

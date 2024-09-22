@@ -10,14 +10,14 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "http://localhost:3005",
+      url: "http://localhost:3005/api/v1",
     },
   ],
 };
 
 const options = {
   swaggerDefinition,
-  apis: ['./src/config/swaggerDefinitions.js'],
+  apis: ["./src/config/swaggerDefinitions.js"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

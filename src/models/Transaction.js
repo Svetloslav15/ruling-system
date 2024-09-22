@@ -1,11 +1,11 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes } from "sequelize";
 
 const TransactionModel = (sequelize, Configuration) => {
-  return sequelize.define('Transaction', {
+  return sequelize.define("Transaction", {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
     },
     hash: {
       type: DataTypes.STRING,
@@ -21,9 +21,9 @@ const TransactionModel = (sequelize, Configuration) => {
       allowNull: false,
       references: {
         model: Configuration,
-        key: 'id',
+        key: "id",
       },
-      onDelete: 'CASCADE'
+      onDelete: "CASCADE",
     },
     createdAt: {
       type: DataTypes.DATE,

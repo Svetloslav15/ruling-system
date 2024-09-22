@@ -4,7 +4,7 @@ export class TransactionService {
     configurationService,
     TransactionModel,
     logger,
-    utils
+    utils,
   }) {
     this.provider = ethereumProvider;
     this.configService = configurationService;
@@ -79,11 +79,11 @@ export class TransactionService {
       return false;
     }
 
-    if (filter.gasLimit && tx.gasLimit.toNumber() !== filter.gasLimit) {
+    if (filter.gasLimit && +tx.gasLimit !== filter.gasLimit) {
       return false;
     }
 
-    if (filter.gasPrice && tx.gasPrice.toNumber() !== filter.gasPrice) {
+    if (filter.gasPrice && +tx.gasPrice > filter.gasPrice) {
       return false;
     }
 

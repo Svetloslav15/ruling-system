@@ -1,7 +1,11 @@
 import { jest } from "@jest/globals";
 
 import { ConfigurationService } from "./ConfigurationService";
-import { mockConfigurationModel, mockLogger, mockUtils } from "../../mocks/mocks";
+import {
+  mockConfigurationModel,
+  mockLogger,
+  mockUtils,
+} from "../../mocks/mocks";
 
 describe("ConfigurationService", () => {
   let configurationService;
@@ -10,7 +14,7 @@ describe("ConfigurationService", () => {
     configurationService = new ConfigurationService({
       ConfigurationModel: mockConfigurationModel,
       logger: mockLogger,
-      utils: mockUtils
+      utils: mockUtils,
     });
   });
 
@@ -34,7 +38,9 @@ describe("ConfigurationService", () => {
   it("should create a new configuration", async () => {
     const newConfig = { name: "New Config", filter: { from: "0x123" } };
     const createdConfig = { id: 3, ...newConfig };
-    jest.spyOn(configurationService.utils, "generateGuid").mockReturnValue("test-guid");
+    jest
+      .spyOn(configurationService.utils, "generateGuid")
+      .mockReturnValue("test-guid");
 
     mockConfigurationModel.create.mockResolvedValue(createdConfig);
 
@@ -90,5 +96,60 @@ describe("ConfigurationService", () => {
     await configurationService.deleteConfiguration(configId);
 
     expect(destroySpy).not.toHaveBeenCalled();
+  });
+
+  it("should log and throw error in createConfiguration if an error occurs", async () => {
+    const errorMessage = "Database error";
+    mockConfigurationModel.create.mockRejectedValue(new Error(errorMessage));
+    mockUtils.generateGuid.mockReturnValue("test-guid");
+
+    await expect(
+      configurationService.createConfiguration({ name: "Test Config" })
+    ).rejects.toThrow(`Error creating configuration: ${errorMessage}`);
+
+    expect(mockLogger.error).toHaveBeenCalledWith(
+      `Error creating configuration: ${errorMessage}`
+    );
+  });
+
+  it("should log and throw error in getConfigurations if an error occurs", async () => {
+    const errorMessage = "Database error";
+    mockConfigurationModel.findAll.mockRejectedValue(new Error(errorMessage));
+
+    await expect(configurationService.getConfigurations()).rejects.toThrow(
+      `Error fetching configurations: ${errorMessage}`
+    );
+
+    expect(mockLogger.error).toHaveBeenCalledWith(
+      `Error fetching configurations: ${errorMessage}`
+    );
+  });
+
+  it("should log and throw error in updateConfiguration if an error occurs", async () => {
+    const errorMessage = "Database error";
+    mockConfigurationModel.findByPk.mockRejectedValue(new Error(errorMessage));
+
+    await expect(
+      configurationService.updateConfiguration("test-id", {
+        name: "Updated Config",
+      })
+    ).rejects.toThrow(`Error updating configuration test-id: ${errorMessage}`);
+
+    expect(mockLogger.error).toHaveBeenCalledWith(
+      `Error updating configuration test-id: ${errorMessage}`
+    );
+  });
+
+  it("should log and throw error in deleteConfiguration if an error occurs", async () => {
+    const errorMessage = "Database error";
+    mockConfigurationModel.findByPk.mockRejectedValue(new Error(errorMessage));
+
+    await expect(
+      configurationService.deleteConfiguration("test-id")
+    ).rejects.toThrow(`Error deleting configuration test-id: ${errorMessage}`);
+
+    expect(mockLogger.error).toHaveBeenCalledWith(
+      `Error deleting configuration test-id: ${errorMessage}`
+    );
   });
 });

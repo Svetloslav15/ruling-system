@@ -1,7 +1,7 @@
-import winston from 'winston';
-import dotenv from 'dotenv';
+import winston from "winston";
+import dotenv from "dotenv";
 
-const FILE_NAME = 'app.log';
+const FILE_NAME = "app.log";
 dotenv.config();
 
 export const createLogger = () => {
