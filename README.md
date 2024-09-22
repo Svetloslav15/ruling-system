@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is designed to monitor Ethereum transactions in real-time based on a set of dynamic configuration rules. The application allows you to define rules for filtering Ethereum transactions (e.g., by sender, recipient, gas limits, transaction value), store matching transactions in a database, and manage these configurations through an API.
+This project is designed to monitor Ethereum transactions in real-time based on a set of dynamic configuration rules. The application allows you to define rules for filtering Ethereum transactions (e.g., by sender, recipient, gas limits), store matching transactions in a database, and manage these configurations through an API.
 
 ### Features
 - Monitor Ethereum blockchain transactions in real-time using Infura.
